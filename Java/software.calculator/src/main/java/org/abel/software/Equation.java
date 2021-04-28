@@ -28,7 +28,7 @@ public class Equation {
         String[] tmpForm = new String[total];
         char[] ss = form.toCharArray();
         for (char a : ss) {
-            if (Character.isDigit(a)) {
+            if (Character.isDigit(a)||a=='.') {
                 isNum = true;
                 if (tmpForm[count] == null)
                     tmpForm[count] = a + "";
