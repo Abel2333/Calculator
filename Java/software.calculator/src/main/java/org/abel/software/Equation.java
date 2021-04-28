@@ -68,9 +68,9 @@ public class Equation {
         return s;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Equation eq = new Equation("1+2+3+(8*9-9)");
         eq.add("+99");
         System.out.print(eq);
-    }
+    }*/
 }
