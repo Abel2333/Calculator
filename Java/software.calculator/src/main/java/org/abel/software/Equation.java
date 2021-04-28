@@ -14,6 +14,14 @@ public class Equation {
         formula = tansform(form, unitNum);
     }
 
+    public int getUniCount() {
+        return unitCount;
+    }
+
+    public String[] getFormula() {
+        return formula;
+    }
+
     private String[] tansform(String form, int total) {
         int count = 0;
         boolean isNum = false;
@@ -27,7 +35,7 @@ public class Equation {
                 else
                     tmpForm[count] += a;
             } else {
-                if (a != '('&&isNum)
+                if (a != '(' && isNum)
                     count++;
                 tmpForm[count++] = a + "";
                 isNum = false;
@@ -57,11 +65,5 @@ public class Equation {
             s += a;
         }
         return s;
-    }
-
-    public static void main(String[] args) {
-        Equation eq = new Equation("1+222+3-4+(78*6-9)+8", 17);
-        eq.add("+99", 2);
-        System.out.print(eq);
     }
 }
