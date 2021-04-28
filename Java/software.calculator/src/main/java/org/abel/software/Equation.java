@@ -4,28 +4,28 @@ import java.util.Arrays;
 
 public class Equation {
     private String[] formula;
-    private int unitCount;
+    private int unitNum;
 
-    Equation(String form, int unitNum) {
+    Equation(String form) {
         if (form.charAt(0) == '-') {
             form = "0" + form;
         }
-        unitCount = unitNum;
-        formula = tansform(form, unitNum);
+        formula = tansform(form);
+        unitNum = formula.length;
     }
 
-    public int getUniCount() {
-        return unitCount;
+    public int getUniNum() {
+        return unitNum;
     }
 
     public String[] getFormula() {
         return formula;
     }
 
-    private String[] tansform(String form, int total) {
+    private String[] tansform(String form) {
         int count = 0;
         boolean isNum = false;
-        String[] tmpForm = new String[total];
+        String[] tmpForm = new String[form.length()];
         char[] ss = form.toCharArray();
         for (char a : ss) {
             if (Character.isDigit(a)||a=='.') {
@@ -41,22 +41,23 @@ public class Equation {
                 isNum = false;
             }
         }
+        if (isNum) count++;
+        tmpForm = Arrays.copyOf(tmpForm, count);
         return tmpForm;
     }
 
-    Equation(int unitNum) {
+    Equation() {
         formula = new String[unitNum];
-        unitCount = unitNum;
     }
 
-    void add(String unit, int total) {
+    void add(String unit) {
         int oldLen = formula.length;
-        formula = Arrays.copyOf(formula, oldLen + total);
-        String[] tmp = tansform(unit, total);
+        String[] tmp = tansform(unit);
+        formula = Arrays.copyOf(formula, oldLen + tmp.length);
         for (int i = 0; i < tmp.length; i++) {
             formula[oldLen + i] = tmp[i];
         }
-        unitCount++;
+        unitNum = formula.length;
     }
 
     public String toString() {
@@ -65,5 +66,11 @@ public class Equation {
             s += a;
         }
         return s;
+    }
+
+    public static void main(String[] args) {
+        Equation eq = new Equation("1+2+3+(8*9-9)");
+        eq.add("+99");
+        System.out.print(eq);
     }
 }
