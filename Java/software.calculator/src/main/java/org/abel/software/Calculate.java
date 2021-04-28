@@ -57,7 +57,7 @@ public class Calculate {
         if (operStack.isEmpty() == false) {
             lastOper = operStack.peek();
         }
-        if (unit.matches("[0-9]*")) {
+        if (unit.matches("^-*[0-9]+")) {
             int uNum = Integer.valueOf(unit);
             if ((lastOper == null) || (!lastOper.equals("*") && !lastOper.equals("/"))) {
                 intStack.add(uNum);
@@ -83,8 +83,8 @@ public class Calculate {
         }
     }
 
-    public static void main(String[] args) {
-        Equation eq = new Equation("(12)*8-(3+6)");
+    /*public static void main(String[] args) {
+        Equation eq = new Equation("-12*8-(-3+6)");
         System.out.print(Calculate.getIntegerAnswer(eq));
-    }
+    }*/
 }

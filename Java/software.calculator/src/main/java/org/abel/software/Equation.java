@@ -28,7 +28,7 @@ public class Equation {
         String[] tmpForm = new String[form.length()];
         char[] ss = form.toCharArray();
         for (char a : ss) {
-            if (Character.isDigit(a)||a=='.') {
+            if (Character.isDigit(a) || a == '.') {
                 isNum = true;
                 if (tmpForm[count] == null)
                     tmpForm[count] = a + "";
@@ -37,11 +37,18 @@ public class Equation {
             } else {
                 if (a != '(' && isNum)
                     count++;
-                tmpForm[count++] = a + "";
+                if (a == '-' && count == 1)
+                    count--;
+                tmpForm[count] = a + "";
+                if (a == '-' && ((count == 0) || (!tmpForm[count - 1].matches("[0-9]*"))))
+                    continue;
+                else
+                    count++;
                 isNum = false;
             }
         }
-        if (isNum) count++;
+        if (isNum)
+            count++;
         tmpForm = Arrays.copyOf(tmpForm, count);
         return tmpForm;
     }
@@ -69,7 +76,7 @@ public class Equation {
     }
 
     /*public static void main(String[] args) {
-        Equation eq = new Equation("1+2+3+(8*9-9)");
+        Equation eq = new Equation("-1.1+2.22+3.45+(-8*9-9)");
         eq.add("+99");
         System.out.print(eq);
     }*/
