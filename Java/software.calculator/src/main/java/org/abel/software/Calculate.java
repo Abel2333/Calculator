@@ -83,8 +83,8 @@ public class Calculate {
         }
     }
 
-    public static void main(String[] args) {
-        Equation eq = new Equation("4+(7*8-9)+6");
+    /*public static void main(String[] args) {
+        Equation eq = new Equation("(12)*8-(3+6)");
         System.out.print(Calculate.getIntegerAnswer(eq));
-    }
+    }*/
 }
