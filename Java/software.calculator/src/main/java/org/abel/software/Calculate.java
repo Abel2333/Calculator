@@ -1,5 +1,6 @@
 package org.abel.software;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 public class Calculate {
@@ -24,7 +25,7 @@ public class Calculate {
                 overProcess();
             }
         }
-
+        formulaOver = true;
         while (formulaOver) {
             overProcess();
         }
@@ -33,34 +34,37 @@ public class Calculate {
     }
 
     static void overProcess() {
+        if (operStack.isEmpty()) {
+            formulaOver = false;
+            return;
+        }
         String operator = operStack.pop();
-        if (operator == "(") {
+        if (operator.equals("(")) {
             formulaOver = false;
             return;
         }
         int b = intStack.pop();
         int a = intStack.pop();
-        if (operator == "+") {
+        if (operator.equals("+")) {
             intStack.add(a + b);
-        } else if (operator == "-") {
+        } else if (operator.equals("-")) {
             intStack.add(a - b);
         }
 
-        if (operStack.isEmpty()) {
-            formulaOver = false;
-        }
     }
 
     static void pOneUnit(String unit) {
         String lastOper = null;
-        if (!operStack.isEmpty()) {
+        if (operStack.isEmpty() == false) {
             lastOper = operStack.peek();
         }
-        if (unit == "[0-9]*") {
+        if (unit.matches("[0-9]*")) {
             int uNum = Integer.valueOf(unit);
-            if (lastOper == "*|/") {
+            if ((lastOper == null) || (!lastOper.equals("*") && !lastOper.equals("/"))) {
+                intStack.add(uNum);
+            } else {
                 int tmp = intStack.pop();
-                if (lastOper == "*") {
+                if (lastOper.equals("*")) {
                     intStack.add(tmp * uNum);
                 } else if ((tmp / uNum) * uNum == uNum) {
                     intStack.add(tmp / uNum);
@@ -69,17 +73,19 @@ public class Calculate {
                     return;
                 }
                 operStack.pop();
-            } else {
-                intStack.add(uNum);
             }
         } else {
-            lastOper = unit;
-            if (unit == ")") {
+            if (unit.equals(")")) {
                 formulaOver = true;
                 return;
             } else {
-                operStack.add(lastOper);
+                operStack.add(unit);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Equation eq = new Equation("4+(7*8-9)+6", 11);
+        System.out.print(Calculate.getIntegerAnswer(eq));
     }
 }
