@@ -1,6 +1,5 @@
 package org.abel.software;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 public class Calculate {
@@ -85,7 +84,7 @@ public class Calculate {
     }
 
     public static void main(String[] args) {
-        Equation eq = new Equation("4+(7*8-9)+6", 11);
+        Equation eq = new Equation("4+(7*8-9)+6");
         System.out.print(Calculate.getIntegerAnswer(eq));
     }
 }
