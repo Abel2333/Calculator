@@ -12,13 +12,15 @@ public class RandomGenerate {
 
     RandomGenerate(double[] status) {
         Date date = new Date();
-        rd = new Random(date.getTime());
+        long seed = date.getTime();
+        rd = new Random(seed);
         this.status = status;
         eq = new Equation(null);
+        System.out.println(seed);
     }
 
     Equation getEquation() {
-        int partNum = rd.nextInt(4) + 2; // 式子总共几个部分
+        int partNum = rd.nextInt(2) + 2; // 式子总共几个部分
         for (int i = 0; i < partNum; i++) {
             String tmpEq = generateEquation();
             if (rd.nextInt(5) >= 3 && status[0] == 1 && !eq.isEmpty()) {
@@ -33,7 +35,7 @@ public class RandomGenerate {
     }
 
     String generateEquation() {
-        int numCount = rd.nextInt(4) + 2; // 该部分中数的个数
+        int numCount = rd.nextInt(2) + 2; // 该部分中数的个数
         DecimalFormat df;
         if (status[1] == 1) {
             df = new DecimalFormat("0.00");

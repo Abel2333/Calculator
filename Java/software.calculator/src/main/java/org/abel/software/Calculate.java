@@ -37,7 +37,7 @@ public class Calculate {
                 while (formulaOver) {
                     overProcess();
                 }
-                douStack.add(invertDouStack.pop());
+                pOneUnit(String.valueOf(invertDouStack.pop()));
             }
         }
         invertDouStack.add(douStack.pop());
@@ -94,11 +94,9 @@ public class Calculate {
                 operStack.pop();
             }
         } else {
-            if (unit.equals(")") && !lastOper.equals("(")) {
+            if (unit.equals(")")) {
                 formulaOver = true;
                 return;
-            } else if (unit.equals(")") && lastOper.equals("(")) {
-                operStack.pop();
             } else {
                 operStack.add(unit);
             }
@@ -106,7 +104,12 @@ public class Calculate {
     }
 
     public static void main(String[] args) {
-        Equation eq = new Equation("-12.4+(-4)-9+(-5*7-9.7)");
-        System.out.print(Calculate.getAnswer(eq));
+        double[] s= {1,1,20};
+        RandomGenerate rg = new RandomGenerate(s);
+        Equation eq = rg.getEquation();
+        System.out.println(eq);
+        System.out.println("=" + Calculate.getAnswer(eq));
+        /*Equation eq = new Equation("9.89+1.77*7.88+11.71");
+        System.out.println(Calculate.getAnswer(eq));*/
     }
 }

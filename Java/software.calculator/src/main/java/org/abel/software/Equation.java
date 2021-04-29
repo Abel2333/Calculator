@@ -26,37 +26,40 @@ public class Equation {
 
     private String[] tansform(String form) {
         int count = 0;
+        boolean thisIsEmpty = true;
         boolean isNum = false;
         String[] tmpForm = new String[form.length()];
         char[] ss = form.toCharArray();
-        for (char a : ss) {
-            if (Character.isDigit(a) || a == '.') {
+        for (int i = 0; i < ss.length; i++) {
+            if (Character.isDigit(ss[i]) || ss[i] == '.') {
+                if (count != 0 && !isNum && !thisIsEmpty) {
+                    count++;
+                }
                 isNum = true;
+                thisIsEmpty = false;
                 if (tmpForm[count] == null)
-                    tmpForm[count] = a + "";
+                    tmpForm[count] = ss[i] + "";
                 else
-                    tmpForm[count] += a;
+                    tmpForm[count] += ss[i];
             } else {
-                if (a != '(' && isNum)
+                if (thisIsEmpty == false) {
                     count++;
-                tmpForm[count] = a + "";
-                if (a == '-' && !isNum) {
-                    if (count == 0 || !tmpForm[count - 1].equals(")"))
-                        continue;
-                    else count++;
-                } else
-                    count++;
-                isNum = false;
+                }
+                tmpForm[count] = ss[i] + "";
+                if (i == ss.length - 1)
+                    break;
+                if (count == 0 && Character.isDigit(ss[i + 1])) {
+                    thisIsEmpty = true;
+                } else if (Character.isDigit(ss[i + 1]) && tmpForm[count - 1].equals("(")) {
+                    thisIsEmpty = true;
+                } else {
+                    thisIsEmpty = false;
+                    isNum = false;
+                }
             }
         }
-        if (isNum)
-            count++;
-        tmpForm = Arrays.copyOf(tmpForm, count);
+        tmpForm = Arrays.copyOf(tmpForm, count + 1);
         return tmpForm;
-    }
-
-    Equation() {
-        formula = new String[unitNum];
     }
 
     void add(String unit) {
@@ -90,8 +93,9 @@ public class Equation {
     }
 
     public static void main(String[] args) {
-        Equation eq = new Equation("-12.4+(-4)-9+(-5*7-9.7)");
-        System.out.print(eq.isEmpty());
+        Equation eq = new Equation("17+(-9.56+89*77)-5.6");
+        eq.add("-(34+7)");
+        System.out.println(eq);
     }
 
 }
