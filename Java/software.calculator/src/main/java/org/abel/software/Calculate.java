@@ -7,6 +7,8 @@ public class Calculate {
     static boolean formulaOver = false; // 右括号结束
     static Stack<String> operStack = new Stack<>(); // 存储运算符号
     static Stack<Double> douStack = new Stack<>(); // 存储浮点数
+    static Stack<String> invertOperStack = new Stack<>();
+    static Stack<Double> invertDouStack = new Stack<>();
 
     static double getAnswer(Equation eq) {
         // 清空栈
@@ -16,37 +18,59 @@ public class Calculate {
         while (!douStack.isEmpty()) {
             douStack.pop();
         }
+        while (!invertDouStack.isEmpty()) {
+            invertDouStack.pop();
+        }
+        while (!invertOperStack.isEmpty()) {
+            invertOperStack.pop();
+        }
 
         for (String unit : eq.getFormula()) {
             pOneUnit(unit);
-            while (formulaOver) {
-                overProcess();
+            if (formulaOver) {
+                invertDouStack.add(douStack.pop());
+                while (!operStack.peek().equals("(")) {
+                    invertOperStack.add(operStack.pop());
+                    invertDouStack.add(douStack.pop());
+                }
+                operStack.pop();
+                while (formulaOver) {
+                    overProcess();
+                }
+                douStack.add(invertDouStack.pop());
             }
+        }
+        invertDouStack.add(douStack.pop());
+        while (!operStack.isEmpty() && !douStack.isEmpty()) {
+            invertOperStack.add(operStack.pop());
+            invertDouStack.add(douStack.pop());
         }
         formulaOver = true;
         while (formulaOver) {
             overProcess();
         }
+        douStack.add(invertDouStack.pop());
 
         return douStack.pop();
+
     }
 
     static void overProcess() {
-        if (operStack.isEmpty()) {
+        if (invertOperStack.isEmpty()) {
             formulaOver = false;
             return;
         }
-        String operator = operStack.pop();
+        String operator = invertOperStack.pop();
         if (operator.equals("(")) {
             formulaOver = false;
             return;
         }
-        double b = douStack.pop();
-        double a = douStack.pop();
+        double a = invertDouStack.pop();
+        double b = invertDouStack.pop();
         if (operator.equals("+")) {
-            douStack.add(a + b);
+            invertDouStack.add(a + b);
         } else if (operator.equals("-")) {
-            douStack.add(a - b);
+            invertDouStack.add(a - b);
         }
 
     }
@@ -70,9 +94,11 @@ public class Calculate {
                 operStack.pop();
             }
         } else {
-            if (unit.equals(")")) {
+            if (unit.equals(")") && !lastOper.equals("(")) {
                 formulaOver = true;
                 return;
+            } else if (unit.equals(")") && lastOper.equals("(")) {
+                operStack.pop();
             } else {
                 operStack.add(unit);
             }
@@ -80,9 +106,7 @@ public class Calculate {
     }
 
     public static void main(String[] args) {
-        //Equation eq = new Equation("-12*8.7-(-3+6.8)");
-        //System.out.print(Calculate.getAnswer(eq));
-        String a = "*";
-        System.out.println(a.matches("^//*"));
+        Equation eq = new Equation("-12.4+(-4)-9+(-5*7-9.7)");
+        System.out.print(Calculate.getAnswer(eq));
     }
 }
