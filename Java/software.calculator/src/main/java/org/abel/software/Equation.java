@@ -7,9 +7,6 @@ public class Equation {
     private int unitNum;
 
     Equation(String form) {
-        if (form.charAt(0) == '-') {
-            form = "0" + form;
-        }
         formula = tansform(form);
         unitNum = formula.length;
     }
@@ -37,10 +34,8 @@ public class Equation {
             } else {
                 if (a != '(' && isNum)
                     count++;
-                if (a == '-' && count == 1)
-                    count--;
                 tmpForm[count] = a + "";
-                if (a == '-' && ((count == 0) || (!tmpForm[count - 1].matches("[0-9]*"))))
+                if (a == '-' && ((count == 0) || (!tmpForm[count - 1].matches("[0-9]+.+[0-9]*"))))
                     continue;
                 else
                     count++;

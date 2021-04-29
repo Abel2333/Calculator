@@ -6,16 +6,15 @@ public class Calculate {
     static boolean hasDoubleError = false; // 表示在整数运算中出现了负数
     static boolean formulaOver = false; // 右括号结束
     static Stack<String> operStack = new Stack<>(); // 存储运算符号
-    static Stack<Integer> intStack = new Stack<>(); // 存储整数
     static Stack<Double> douStack = new Stack<>(); // 存储浮点数
 
-    static int getIntegerAnswer(Equation eq) {
+    static double getAnswer(Equation eq) {
         // 清空栈
         while (!operStack.isEmpty()) {
             operStack.pop();
         }
-        while (!intStack.isEmpty()) {
-            intStack.pop();
+        while (!douStack.isEmpty()) {
+            douStack.pop();
         }
 
         for (String unit : eq.getFormula()) {
@@ -29,7 +28,7 @@ public class Calculate {
             overProcess();
         }
 
-        return intStack.pop();
+        return douStack.pop();
     }
 
     static void overProcess() {
@@ -42,12 +41,12 @@ public class Calculate {
             formulaOver = false;
             return;
         }
-        int b = intStack.pop();
-        int a = intStack.pop();
+        double b = douStack.pop();
+        double a = douStack.pop();
         if (operator.equals("+")) {
-            intStack.add(a + b);
+            douStack.add(a + b);
         } else if (operator.equals("-")) {
-            intStack.add(a - b);
+            douStack.add(a - b);
         }
 
     }
@@ -57,19 +56,16 @@ public class Calculate {
         if (operStack.isEmpty() == false) {
             lastOper = operStack.peek();
         }
-        if (unit.matches("^-*[0-9]+")) {
-            int uNum = Integer.valueOf(unit);
+        if (unit.matches("^-?[0-9]+.*[0-9]*")) {
+            double uNum = Double.valueOf(unit);
             if ((lastOper == null) || (!lastOper.equals("*") && !lastOper.equals("/"))) {
-                intStack.add(uNum);
+                douStack.add(uNum);
             } else {
-                int tmp = intStack.pop();
+                double tmp = douStack.pop();
                 if (lastOper.equals("*")) {
-                    intStack.add(tmp * uNum);
-                } else if ((tmp / uNum) * uNum == uNum) {
-                    intStack.add(tmp / uNum);
+                    douStack.add(tmp * uNum);
                 } else {
-                    hasDoubleError = true;
-                    return;
+                    douStack.add(tmp / uNum);
                 }
                 operStack.pop();
             }
@@ -83,8 +79,10 @@ public class Calculate {
         }
     }
 
-    /*public static void main(String[] args) {
-        Equation eq = new Equation("-12*8-(-3+6)");
-        System.out.print(Calculate.getIntegerAnswer(eq));
-    }*/
+    public static void main(String[] args) {
+        //Equation eq = new Equation("-12*8.7-(-3+6.8)");
+        //System.out.print(Calculate.getAnswer(eq));
+        String a = "*";
+        System.out.println(a.matches("^//*"));
+    }
 }
