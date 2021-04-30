@@ -12,6 +12,7 @@ public class Equation {
             unitNum = -1;
             return;
         }
+        unitNum = -1;
         formula = tansform(form);
         unitNum = formula.length;
     }
@@ -32,7 +33,7 @@ public class Equation {
         char[] ss = form.toCharArray();
         for (int i = 0; i < ss.length; i++) {
             if (Character.isDigit(ss[i]) || ss[i] == '.') {
-                if (count != 0 && !isNum && !thisIsEmpty) {
+                if (!isNum && !thisIsEmpty) {
                     count++;
                 }
                 isNum = true;
@@ -48,9 +49,10 @@ public class Equation {
                 tmpForm[count] = ss[i] + "";
                 if (i == ss.length - 1)
                     break;
-                if (count == 0 && Character.isDigit(ss[i + 1])) {
+                if (count == 0 && Character.isDigit(ss[i + 1]) && ss[i] == '-' && isEmpty()) {
                     thisIsEmpty = true;
-                } else if (Character.isDigit(ss[i + 1]) && tmpForm[count - 1].equals("(")) {
+                } else if (count != 0 && ss[i] == '-' && Character.isDigit(ss[i + 1])
+                        && tmpForm[count - 1].equals("(")) {
                     thisIsEmpty = true;
                 } else {
                     thisIsEmpty = false;

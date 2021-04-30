@@ -12,7 +12,8 @@ public class RandomGenerate {
 
     RandomGenerate(double[] status) {
         Date date = new Date();
-        long seed = date.getTime();
+        long seed = date.getTime() + System.nanoTime();
+        // long seed = 1619752917759L;
         rd = new Random(seed);
         this.status = status;
         eq = new Equation(null);
@@ -59,8 +60,10 @@ public class RandomGenerate {
 
     public static void main(String[] args) {
         double[] s = { 1, 1, 20 };
-        RandomGenerate rg = new RandomGenerate(s);
-        System.out.println(rg.getEquation());
+        for (int i = 0; i < 10; i++) {
+            RandomGenerate rg = new RandomGenerate(s);
+            System.out.println(rg.getEquation());
+        }
     }
 
 }
