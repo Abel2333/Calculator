@@ -9,10 +9,10 @@ import javax.swing.*;
 public class UI extends JFrame {
     private double[] s = { 0, 0, 0 };
 
-    private JButton overButton = new JButton("ç”Ÿæˆ");
-    private JLabel formuNumLabel = new JLabel("é¢˜ç›®æ•°é‡"), maxNumLabel = new JLabel("æœ€å¤§æ•°");
+    private JButton overButton = new JButton("Éú³É");
+    private JLabel formuNumLabel = new JLabel("µÈÊ½ÊıÁ¿"), maxNumLabel = new JLabel("×î´óÊıÖµ");
     private JTextField formNumText = new JTextField(5), maxNumText = new JTextField(5);
-    private JCheckBox parenthesesCheckBox = new JCheckBox("æ‹¬å·"), decimalCheckBox = new JCheckBox("å°æ•°");
+    private JCheckBox parenthesesCheckBox = new JCheckBox("À¨ºÅ"), decimalCheckBox = new JCheckBox("Ğ¡Êı");
     private JTextArea equalTextArea = new JTextArea(10, 20);
 
     private GridBagLayout gridBagLayout = new GridBagLayout();
@@ -97,6 +97,6 @@ public class UI extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingConsole.run(new UI(), 800, 500, "éšæœºè®¡ç®—å™¨");
+        SwingConsole.run(new UI(), 800, 500, "Ëæ»ú¼ÆËãÆ÷");
     }
 }

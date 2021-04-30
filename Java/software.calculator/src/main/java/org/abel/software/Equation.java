@@ -94,10 +94,10 @@ public class Equation {
         return s;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Equation eq = new Equation("17+(-9.56+89*77)-5.6");
         eq.add("-(34+7)");
         System.out.println(eq);
-    }
+    }*/
 
 }

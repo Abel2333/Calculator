@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class RandomGenerate {
     private Random rd;
-    private double[] status = { 0, 0, 0 }; // åˆ†åˆ«è¡¨ç¤ºæ˜¯å¦åŒ…å«æ‹¬å·ï¼Œæ˜¯å¦åŒ…å«å°æ•°ï¼Œæ•°æ®æœ€å¤§å€¼
+    private double[] status = { 0, 0, 0 }; // ·Ö±ğ±íÊ¾ÊÇ·ñ°üº¬À¨ºÅ£¬ÊÇ·ñ°üº¬Ğ¡Êı£¬Êı¾İ×î´óÖµ
     private String[] operator = { "+", "-", "*", "/" };
     private Equation eq;
 
@@ -21,7 +21,7 @@ public class RandomGenerate {
     }
 
     Equation getEquation() {
-        int partNum = rd.nextInt(2) + 2; // å¼å­æ€»å…±å‡ ä¸ªéƒ¨åˆ†
+        int partNum = rd.nextInt(2) + 2; // Ê½×Ó×Ü¹²¼¸¸ö²¿·Ö
         for (int i = 0; i < partNum; i++) {
             String tmpEq = generateEquation();
             if (rd.nextInt(5) >= 3 && status[0] == 1 && !eq.isEmpty()) {
@@ -36,7 +36,7 @@ public class RandomGenerate {
     }
 
     String generateEquation() {
-        int numCount = rd.nextInt(2) + 2; // è¯¥éƒ¨åˆ†ä¸­æ•°çš„ä¸ªæ•°
+        int numCount = rd.nextInt(2) + 2; // ¸Ã²¿·ÖÖĞÊıµÄ¸öÊı
         DecimalFormat df;
         if (status[1] == 1) {
             df = new DecimalFormat("0.00");
@@ -58,12 +58,12 @@ public class RandomGenerate {
         return tmpF;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         double[] s = { 1, 1, 20 };
         for (int i = 0; i < 10; i++) {
             RandomGenerate rg = new RandomGenerate(s);
             System.out.println(rg.getEquation());
         }
-    }
+    }*/
 
 }

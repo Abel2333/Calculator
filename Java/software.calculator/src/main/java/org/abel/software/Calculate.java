@@ -3,15 +3,15 @@ package org.abel.software;
 import java.util.Stack;
 
 public class Calculate {
-    static boolean hasDoubleError = false; // è¡¨ç¤ºåœ¨æ•´æ•°è¿ç®—ä¸­å‡ºç°äº†è´Ÿæ•°
-    static boolean formulaOver = false; // å³æ‹¬å·ç»“æŸ
-    static Stack<String> operStack = new Stack<>(); // å­˜å‚¨è¿ç®—ç¬¦å·
-    static Stack<Double> douStack = new Stack<>(); // å­˜å‚¨æµ®ç‚¹æ•°
+    static boolean hasDoubleError = false; // ±íÊ¾ÔÚÕûÊıÔËËãÖĞ³öÏÖÁË¸ºÊı
+    static boolean formulaOver = false; // ÓÒÀ¨ºÅ½áÊø
+    static Stack<String> operStack = new Stack<>(); // ´æ´¢ÔËËã·ûºÅ
+    static Stack<Double> douStack = new Stack<>(); // ´æ´¢¸¡µãÊı
     static Stack<String> invertOperStack = new Stack<>();
     static Stack<Double> invertDouStack = new Stack<>();
 
     static double getAnswer(Equation eq) {
-        // æ¸…ç©ºæ ˆ
+        // Çå¿ÕÕ»
         while (!operStack.isEmpty()) {
             operStack.pop();
         }
