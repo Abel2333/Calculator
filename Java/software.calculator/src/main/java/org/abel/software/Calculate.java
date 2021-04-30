@@ -105,14 +105,14 @@ public class Calculate {
 
     public static void main(String[] args) {
         double[] s = { 1, 0, 20 };
-        for (int i = 0; i < 30; i++) {
-            RandomGenerate rg = new RandomGenerate(s);
+        for (int i = 0; i < 10; i++) {
+        RandomGenerate rg = new RandomGenerate(s);
             Equation eq = rg.getEquation();
             System.out.println(eq + "=" + Calculate.getAnswer(eq));
         }
-        /*
-         * Equation eq = new Equation("9.89+1.77*7.88+11.71");
-         * System.out.println(Calculate.getAnswer(eq));
-         */
     }
+    /*
+     * Equation eq = new Equation("9.89+1.77*7.88+11.71");
+     * System.out.println(Calculate.getAnswer(eq));
+     */
 }

@@ -17,7 +17,7 @@ public class RandomGenerate {
         rd = new Random(seed);
         this.status = status;
         eq = new Equation(null);
-        System.out.println(seed);
+        // System.out.println(seed);
     }
 
     Equation getEquation() {
